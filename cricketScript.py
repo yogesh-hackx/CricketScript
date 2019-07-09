@@ -119,9 +119,11 @@ if menuOption == 1:
 		rallign = 30
 		callign = lallign +rallign
 		clear = lambda: os.system('clear')
+		battingTeam = battingTeam()
+		bwlr = Bowler()
 
 		def printUpdatedScore():
-			batTeam = battingTeam()
+			#batTeam = battingTeam()
 			chkScore = str(checkScore())
 			chkWickets = str(checkWickets())
 			chkOvers = str(checkOvers())
@@ -131,9 +133,10 @@ if menuOption == 1:
 			bt2Runs = bat2Runs()
 			bt1Balls = bat1Balls()
 			bt2Balls = bat2Balls()
-			bwlr = Bowler()
+			if int(float(chkOvers)) == float(chkOvers):
+				bwlr = Bowler()
 			clear()
-			print((((batTeam + ': ' + chkScore + '/' + chkWickets +"   (" + chkOvers + " Overs)").center(callign, " ")) + (("\n  "+ btsMan1 + '* ').ljust(20, '-') + '  ' + bt1Runs + " RUNS in " + bt1Balls + " Balls" + "\n"+ ("  "+btsMan2 + "  ").ljust(20, '-') + '  ' + bt2Runs + " RUNS in " + bt2Balls + " Balls" + "\n\n"+ "  Bowler : ".ljust(20, '.')+"  "+ bwlr + "\n" )))
+			print((((battingTeam + ': ' + chkScore + '/' + chkWickets +"   (" + chkOvers + " Overs)").center(callign, " ")) + (("\n  "+ btsMan1 + '* ').ljust(20, '-') + '  ' + bt1Runs + " RUNS in " + bt1Balls + " Balls" + "\n"+ ("  "+btsMan2 + "  ").ljust(20, '-') + '  ' + bt2Runs + " RUNS in " + bt2Balls + " Balls" + "\n\n"+ "  Bowler : ".ljust(20, '.')+"  "+ bwlr + "\n" )))
 			if chkOvers == '50.0':
 				print("Match Over...!!")
 				time.sleep(4)
@@ -144,6 +147,10 @@ if menuOption == 1:
 		print("")
 		print((matches[i]['status']).center(callign, '-'))
 		print("\n")
+
+		if 'rain' in (matches[i]['status']):
+			print("\n:(")
+			exit()
 		printUpdatedScore()
 		while True:
 			oldOvers = checkOvers()
