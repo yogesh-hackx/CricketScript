@@ -58,25 +58,46 @@ if menuOption == 1:
 			return bowlingTeam
 
 		def batsMan1():
-			batsman1 = c.livescore(matches[i]['id'])['batting']['batsman'][0]['name']
-			return batsman1
+			try:
+				batsman1 = c.livescore(matches[i]['id'])['batting']['batsman'][0]['name']
+				return batsman1
+			except:
+				batsman1 = "W"
+				return batsman1
+
 		def batsMan2():
-			batsman2 = c.livescore(matches[i]['id'])['batting']['batsman'][1]['name']
-			return batsman2
+			try:
+				batsman2 = c.livescore(matches[i]['id'])['batting']['batsman'][1]['name']
+				return batsman2
+			except:
+				batsman2 = "w"
+				return batsman2
 
 		def bat1Runs():
-			bat1runs = c.livescore(matches[i]['id'])['batting']['batsman'][0]['runs']
-			return bat1runs
-		def bat2Runs():
-			bat2runs = c.livescore(matches[i]['id'])['batting']['batsman'][1]['runs']
-			return bat2runs
+			try:
+				bat1runs = c.livescore(matches[i]['id'])['batting']['batsman'][0]['runs']
+				return bat1runs
+			except:
+				return 'W'
 
+		def bat2Runs():
+			try:	
+				bat2runs = c.livescore(matches[i]['id'])['batting']['batsman'][1]['runs']
+				return bat2runs
+			except:
+				return 'W'
 		def bat1Balls():
-			bat1balls = c.livescore(matches[i]['id'])['batting']['batsman'][0]['balls']
-			return bat1balls
+			try:
+				bat1balls = c.livescore(matches[i]['id'])['batting']['batsman'][0]['balls']
+				return bat1balls
+			except:
+				return "W"
 		def bat2Balls():
-			bat2balls = c.livescore(matches[i]['id'])['batting']['batsman'][1]['balls']
-			return bat2balls
+			try:
+				bat2balls = c.livescore(matches[i]['id'])['batting']['batsman'][1]['balls']
+				return bat2balls
+			except:
+				return "W"
 
 		def Bowler():
 			bowler = c.livescore(matches[i]['id'])['bowling']['bowler'][0]['name']
@@ -113,6 +134,10 @@ if menuOption == 1:
 			bwlr = Bowler()
 			clear()
 			print((((batTeam + ': ' + chkScore + '/' + chkWickets +"   (" + chkOvers + " Overs)").center(callign, " ")) + (("\n  "+ btsMan1 + '* ').ljust(20, '-') + '  ' + bt1Runs + " RUNS in " + bt1Balls + " Balls" + "\n"+ ("  "+btsMan2 + "  ").ljust(20, '-') + '  ' + bt2Runs + " RUNS in " + bt2Balls + " Balls" + "\n\n"+ "  Bowler : ".ljust(20, '.')+"  "+ bwlr + "\n" )))
+			if chkOvers == '50.0':
+				print("Match Over...!!")
+				time.sleep(4)
+				exit()
 
 		
 		print((c.livescore(matches[i]['id'])['batting']['team'] + ' vs ' + c.livescore(matches[i]['id'])['bowling']['team']).center(callign, '='))
