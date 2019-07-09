@@ -50,19 +50,37 @@ if menuOption == 1:
 		i = int(i)
 		print("\n")
 
-		battingTeam = c.livescore(matches[i]['id'])['batting']['team']
-		bowlingTeam = c.livescore(matches[i]['id'])['bowling']['team']
+		def battingTeam():
+			battingTeam = c.livescore(matches[i]['id'])['batting']['team']
+			return battingTeam
+		def bowlingTeam():
+			bowlingTeam = c.livescore(matches[i]['id'])['bowling']['team']
+			return bowlingTeam
 
-		batsman1 = c.livescore(matches[i]['id'])['batting']['batsman'][0]['name']
-		batsman2 = c.livescore(matches[i]['id'])['batting']['batsman'][1]['name']
+		def batsMan1():
+			batsman1 = c.livescore(matches[i]['id'])['batting']['batsman'][0]['name']
+			return batsman1
+		def batsMan2():
+			batsman2 = c.livescore(matches[i]['id'])['batting']['batsman'][1]['name']
+			return batsman2
 
-		bat1runs = c.livescore(matches[i]['id'])['batting']['batsman'][0]['runs']
-		bat2runs = c.livescore(matches[i]['id'])['batting']['batsman'][1]['runs']
+		def bat1Runs():
+			bat1runs = c.livescore(matches[i]['id'])['batting']['batsman'][0]['runs']
+			return bat1runs
+		def bat2Runs():
+			bat2runs = c.livescore(matches[i]['id'])['batting']['batsman'][1]['runs']
+			return bat2runs
 
-		bat1balls = c.livescore(matches[i]['id'])['batting']['batsman'][0]['balls']
-		bat2balls = c.livescore(matches[i]['id'])['batting']['batsman'][1]['balls']
+		def bat1Balls():
+			bat1balls = c.livescore(matches[i]['id'])['batting']['batsman'][0]['balls']
+			return bat1balls
+		def bat2Balls():
+			bat2balls = c.livescore(matches[i]['id'])['batting']['batsman'][1]['balls']
+			return bat2balls
 
-		bowler = c.livescore(matches[i]['id'])['bowling']['bowler'][0]['name']
+		def Bowler():
+			bowler = c.livescore(matches[i]['id'])['bowling']['bowler'][0]['name']
+			return bowler
 
 		def checkScore():
 			score = (c.livescore(matches[i]['id'])['batting']['score'][0]['runs'])
@@ -80,19 +98,38 @@ if menuOption == 1:
 		rallign = 30
 		callign = lallign +rallign
 		clear = lambda: os.system('clear')
-		clear()
+
+		def printUpdatedScore():
+			batTeam = battingTeam()
+			chkScore = str(checkScore())
+			chkWickets = str(checkWickets())
+			chkOvers = str(checkOvers())
+			btsMan1 = batsMan1()
+			btsMan2 = batsMan2()
+			bt1Runs = bat1Runs()
+			bt2Runs = bat2Runs()
+			bt1Balls = bat1Balls()
+			bt2Balls = bat2Balls()
+			bwlr = Bowler()
+			clear()
+			print((((batTeam + ': ' + chkScore + '/' + chkWickets +"   (" + chkOvers + " Overs)").center(callign, " ")) + (("\n  "+ btsMan1 + '* ').ljust(20, '-') + '  ' + bt1Runs + " RUNS in " + bt1Balls + " Balls" + "\n"+ ("  "+btsMan2 + "  ").ljust(20, '-') + '  ' + bt2Runs + " RUNS in " + bt2Balls + " Balls" + "\n\n"+ "  Bowler : ".ljust(20, '.')+"  "+ bwlr + "\n" )))
+
+		
 		print((c.livescore(matches[i]['id'])['batting']['team'] + ' vs ' + c.livescore(matches[i]['id'])['bowling']['team']).center(callign, '='))
 		print("")
 		print((matches[i]['status']).center(callign, '-'))
 		print("\n")
+		printUpdatedScore()
 		while True:
 			oldOvers = checkOvers()
-			while oldOvers == checkOvers:
-				pass
-			print((((battingTeam + ': ' + str(checkScore()) + '/' + str(checkWickets()) +"   (" + str(checkOvers()) + " Overs)").center(callign, " ")) + (("\n  "+batsman1 + '* ').ljust(20, '-') + '  ' + bat1runs + " RUNS in " + bat1balls + " Balls" + "\n"+ ("  "+batsman2 + "  ").ljust(20, '-') + '  ' + bat2runs + " RUNS in " + bat2balls + " Balls" + "\n\n"+ "  Bowler : ".ljust(20, '.')+"  "+ bowler + "\n" )), end = '\r')
-			time.sleep(1)
-			clear()
-			sys.stdout.flush()
+			oldOvers1 = checkOvers()
+			while oldOvers1 == oldOvers:
+				oldOvers1 = checkOvers()
+
+			printUpdatedScore()
+			
+			
+			#sys.stdout.flush()
 
 else:
 	for i in range(noOfMatches):
