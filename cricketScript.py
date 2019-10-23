@@ -1,15 +1,27 @@
 import sys, os, time
 from pycricbuzz import Cricbuzz
+import smtplib
+
+
+
 c = Cricbuzz()
 matches = c.matches()
 noOfMatches = len(matches)
 
 inProgress = 0
 
+# it will store the message
+message = ""
 
+#creating smtp gateway
+s = smtplib.SMTP('smtp.gmail.com', '587')
+
+#creating tls for secuity
+s.starttls()
+
+s.login("ashutoshsinghrkt@gmail.com", "9984664749")
 
 #Add features for selecting matche-types & also for checking match schedules
-
 print("Cricket Time".center(60, '='))
 print("\nMenu:-\n\n01. LiveScore\n02. Match Schedule")
 menuOption = int(input())
@@ -45,6 +57,7 @@ if menuOption == 1:
 				battingTeam = c.livescore(matches[i]['id'])['batting']['team']
 				bowlingTeam = c.livescore(matches[i]['id'])['bowling']['team']
 				print(str(i) + ". " + (battingTeam) + "  vs  " + (bowlingTeam))
+				message = str(i) + ". " + (battingTeam) + "  vs  " + (bowlingTeam)
 
 
 		print("\nMatch ID: ", end = "  ")
@@ -163,11 +176,16 @@ if menuOption == 1:
 			printUpdatedScore()
 			
 			
+
 			#sys.stdout.flush()
+
 
 # if the input is 2
 else:
 	for i in range(noOfMatches):
 		print(matches[i]['team1']['name'] +" vs "+ matches[i]['team2']['name'] +" "+ matches[i]['status'])
+		message = matches[i]['team1']['name'] +" vs "+ matches[i]['team2']['name'] +" "+ matches[i]['status']
+		s.sendmail("ashutoshsinghrkt@gmail.com", "ashutoshsinghrkt@gmail.com", message)
+#send the mail 
 
-	
+s.quit()	
