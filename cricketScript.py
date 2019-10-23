@@ -63,7 +63,7 @@ if menuOption == 1:
 				battingTeam = c.livescore(matches[i]['id'])['batting']['team']
 				bowlingTeam = c.livescore(matches[i]['id'])['bowling']['team']
 				print(str(i) + ". " + (battingTeam) + "  vs  " + (bowlingTeam))
-				message = str(i) + ". " + (battingTeam) + "  vs  " + (bowlingTeam)
+				#message = str(i) + ". " + (battingTeam) + "  vs  " + (bowlingTeam)
 
 
 		print("\nMatch ID: ", end = "  ")
@@ -190,8 +190,8 @@ if menuOption == 1:
 else:
 	for i in range(noOfMatches):
 		print(matches[i]['team1']['name'] +" vs "+ matches[i]['team2']['name'] +" "+ matches[i]['status'])
-		message = matches[i]['team1']['name'] +" vs "+ matches[i]['team2']['name'] +" "+ matches[i]['status']
-		s.sendmail(email, email, message)
+		message += matches[i]['team1']['name'] +" vs "+ matches[i]['team2']['name'] +" "+ matches[i]['status']+"\n"
+	s.sendmail(email, email, message)
 #send the mail 
 
 s.quit()	
