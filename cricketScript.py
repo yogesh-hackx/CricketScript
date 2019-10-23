@@ -14,12 +14,14 @@ print("Cricket Time".center(60, '='))
 print("\nMenu:-\n\n01. LiveScore\n02. Match Schedule")
 menuOption = int(input())
 
+#if the input is not 1 or 2 then an error pop up
 while menuOption not in range(1,3):
 	print("oops.. Please enter valid input: ")
 	menuOption = int(input())
 
 series = matches[0]['srs']
 tempSeries = series
+
 
 if menuOption == 1:
 	for i in range(noOfMatches):
@@ -163,6 +165,7 @@ if menuOption == 1:
 			
 			#sys.stdout.flush()
 
+# if the input is 2
 else:
 	for i in range(noOfMatches):
 		print(matches[i]['team1']['name'] +" vs "+ matches[i]['team2']['name'] +" "+ matches[i]['status'])
